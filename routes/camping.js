@@ -1,46 +1,38 @@
 const express = require("express");
 const router = express.Router();
+const {
+  listCamping,
+  readCamping,
+  createCamping,
+  updateCamping,
+  deleteCamping,
+} = require("../controllers/camping");
 
 // Endpoint http://localhost:5000/api/camping
 // Method: GET [read all]
 // Access: Public
-router.get("/camping", (req, res) => {
-  res.send("Camping route is working");
-});
+router.get("/camping", listCamping);
 
 // Endpoint http://localhost:5000/api/camping/:id
 // Method: GET [read by id]
 // Access: Public
-router.get("/camping/:id", (req, res) => {
-  res.send("Camping route is working");
-});
+router.get("/camping/:id", readCamping);
 
 // Endpoint http://localhost:5000/api/camping
 // Method: POST
 // Access: Private
-router.post("/camping", (req, res) => {
-  const { title, price } = req.body;
-  console.log(req.body.title);
-  console.log(req.body.price);
-  res.send("messege from post request");
-});
+router.post("/camping", createCamping);
 
 // Endpoint http://localhost:5000/api/camping/:id
 // Method: PUT
 // Access: Private
 
-router.put("/camping/:id", (req, res) => {
-  console.log(req.params.id);
-  res.send("messege from put request");
-});
+router.put("/camping/:id", updateCamping);
 
 // Endpoint http://localhost:5000/api/camping/:id
 // Method: DELETE
 // Access: Private
 
-router.delete("/camping/:id", (req, res) => {
-  console.log(req.params.id);
-  res.send("messege from delete request");
-});
+router.delete("/camping/:id", deleteCamping);
 
 module.exports = router;
