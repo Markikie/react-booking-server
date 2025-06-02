@@ -7,11 +7,11 @@ const {
   updateCamping,
   deleteCamping,
 } = require("../controllers/camping");
-
+const { authCheck } = require("../middlewares/auth");
 // Endpoint http://localhost:5000/api/camping
 // Method: GET [read all]
 // Access: Public
-router.get("/camping", listCamping);
+router.get("/camping", authCheck, listCamping);
 
 // Endpoint http://localhost:5000/api/camping/:id
 // Method: GET [read by id]

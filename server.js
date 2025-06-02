@@ -1,18 +1,22 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const morgan = require("morgan");
 
-const campingRoutes = require("./routes/camping");
+const { readdirSync } = require("fs");
 
 app.use(cors());
 app.use(express.json()); // Middleware to parse JSON bodies
+app.use(morgan("dev")); // Middleware for logging requests
 
 // app.get("/", (req, res) => {
 //   console.log("hello backend");
 //   res.json("hello backend");
 // });
 
-app.use("/api", campingRoutes);
+console.log(readdirSync("./routes"));
+
+readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 
 const PORT = process.env.PORT || 5000;
 app.listen(5000, () => {
