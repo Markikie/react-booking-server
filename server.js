@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
+const handleError = require("./middlewares/error");
 
 const { readdirSync } = require("fs");
 
@@ -17,6 +18,8 @@ app.use(morgan("dev")); // Middleware for logging requests
 console.log(readdirSync("./routes"));
 
 readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
+
+app.use(handleError);
 
 const PORT = process.env.PORT || 5000;
 app.listen(5000, () => {
